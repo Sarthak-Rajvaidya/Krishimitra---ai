@@ -1,3 +1,4 @@
+
 services:
   postgres:
     image: postgres:16
@@ -5,16 +6,22 @@ services:
       POSTGRES_USER: krishisetu
       POSTGRES_PASSWORD: krishisetu
       POSTGRES_DB: krishisetu
-    ports: ["5432:5432"]
-    volumes: [pgdata:/var/lib/postgresql/data]
+    ports:
+      - "15432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U krishisetu"]
       interval: 5s
       retries: 10
+
   qdrant:
     image: qdrant/qdrant:latest
-    ports: ["16333:6333"]
-    volumes: [qdrantdata:/qdrant/storage]
+    ports:
+      - "16333:6333"
+    volumes:
+      - qdrantdata:/qdrant/storage
+
 volumes:
   pgdata:
   qdrantdata:
